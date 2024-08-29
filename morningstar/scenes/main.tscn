@@ -34,10 +34,6 @@ current = true
 size = 20.0
 script = ExtResource("1_ax2uf")
 
-[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
-collide_with_areas = true
-debug_shape_custom_color = Color(1, 0, 0, 1)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Player/Camera3D"]
 transform = Transform3D(0.728706, 0.331997, -0.598971, -0.256475, 0.943281, 0.210813, 0.634987, 0, 0.772523, -0.312665, 6.96195, 11.1675)
 

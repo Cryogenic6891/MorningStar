@@ -2,10 +2,8 @@ extends CharacterBody3D
 
 #Movement Variables
 var speed = 5.0
-var target_position: Vector3 = Vector3()
 
 #References
-@onready var raycast: RayCast3D = $Camera3D/RayCast3D
 @onready var camera: Camera3D = $Camera3D
 @onready var navagent: NavigationAgent3D = $NavigationAgent3D
 
@@ -13,37 +11,32 @@ func _ready():
 	velocity = Vector3.ZERO
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-func _physics_process(delta):
-	if target_position != Vector3():
-		move_toward_target(delta)
+func _physics_process(_delta):
+	if navagent.is_target_reachable():
+		move_toward_target()
 
 func _input(event):
+	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-		update_target_position(event)
+		update_target_position()
 
-func update_target_position(event: InputEventMouseButton):
-	var ray_origin: Vector3 = camera.project_ray_origin(event.position)
-	var ray_direction: Vector3 = camera.project_ray_normal(event.position)
+func update_target_position():
+	var mouse_position = get_viewport().get_mouse_position()
+	var ray_length = 100
+	var ray_origin: Vector3 = camera.project_ray_origin(mouse_position)
+	var ray_direction: Vector3 = ray_origin + camera.project_ray_normal(mouse_position) * ray_length
+	var space = get_world_3d().direct_space_state
+	var ray_query = PhysicsRayQueryParameters3D.new()
 	
-	raycast.transform.origin = ray_origin
-	raycast.target_position = ray_direction * 1000
-	raycast.force_raycast_update()
-	
-	print("Ray origin: ", ray_origin)
-	print("Ray direction: ", ray_direction)
-	
-	if raycast.is_colliding():
-		target_position = raycast.get_collision_point()
-		print("Target position set to: ", target_position)
-	else:
-		print("Raycast did not collide with any surface.")
+	ray_query.from = ray_origin
+	ray_query.to = ray_direction
 
-func move_toward_target(_delta):
-	var direction = (target_position - global_transform.origin).normalized()
-	velocity.x = direction.x * speed
-	velocity.z = direction.z * speed
+	var result = space.intersect_ray(ray_query)
+	if result:
+		navagent.target_position = result.position
+
+func move_toward_target():
+	var target_position = navagent.get_next_path_position()
+	var direction = global_position.direction_to(target_position)
+	velocity = direction * speed
 	move_and_slide()
-	
-	if global_transform.origin.distance_to(target_position) < 0.1:
-		velocity = Vector3.ZERO
-		target_position = Vector3()
