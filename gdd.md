@@ -42,7 +42,7 @@ Two options: Free to play with in game purchases for extra content OR 1 time pay
   - **Enter:** Start chat/ Send chat
 - Combat
   - Melee Attacks
-  - Magic
+  - Magic (Hearts/Diamonds/Spades/Clubs)
   - Sync'd Turns
 - Chat
   - Social

@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://bosl5aycbuf5f"]
+
+[ext_resource type="Script" path="res://scripts/PlayerCamera.gd" id="1_ax2uf"]
+[ext_resource type="Script" path="res://scripts/PlayerController.gd" id="1_mn3v4"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6jubc"]
+radius = 0.551916
+height = 2.13327
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_84d4s"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_v0w1m"]
+size = Vector2(20, 20)
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_uq7t1"]
+vertices = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, -10)
+polygons = [PackedInt32Array(0, 1, 2), PackedInt32Array(1, 3, 2)]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vaj3r"]
+size = Vector3(19.6003, 1, 19.1108)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Player" type="CharacterBody3D" parent="."]
+script = ExtResource("1_mn3v4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_6jubc")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+projection = 1
+current = true
+size = 20.0
+script = ExtResource("1_ax2uf")
+
+[node name="RayCast3D" type="RayCast3D" parent="Player/Camera3D"]
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Player/Camera3D"]
+transform = Transform3D(0.728706, 0.331997, -0.598971, -0.256475, 0.943281, 0.210813, 0.634987, 0, 0.772523, -0.312665, 6.96195, 11.1675)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_84d4s")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Player"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_v0w1m")
+skeleton = NodePath("NavigationRegion3D/StaticBody3D")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="MeshInstance3D"]
+navigation_mesh = SubResource("NavigationMesh_uq7t1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.289539, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/NavigationRegion3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_vaj3r")
