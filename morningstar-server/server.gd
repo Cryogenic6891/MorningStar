@@ -12,10 +12,8 @@ signal signal_server_disconnected
 
 func _ready():
 	if OS.has_feature("dedicated_server"):
-		pass
-		#run startup code here
-	initialize_server()
-	create_server()
+		initialize_server()
+		create_server()
 
 func initialize_server():
 	print("Initializing Server")
