@@ -55,5 +55,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.289539, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/NavigationRegion3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_vaj3r")
-
-[node name="NetworkManager" type="Node" parent="."]
