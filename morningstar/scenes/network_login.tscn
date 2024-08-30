@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://bvptkmhc5ng2e"]
+[gd_scene load_steps=2 format=3 uid="uid://bvptkmhc5ng2e"]
+
+[ext_resource type="Script" path="res://scripts/network_login.gd" id="1_fn6r5"]
 
 [node name="NetworkLogin" type="Control"]
 layout_mode = 3
@@ -7,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_fn6r5")
 
 [node name="BasePanel" type="Panel" parent="."]
 layout_mode = 1
@@ -81,7 +84,7 @@ text = "Login"
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="LoginButton2" type="Button" parent="BasePanel/CenterContainer"]
+[node name="RegisterButton" type="Button" parent="BasePanel/CenterContainer"]
 layout_mode = 2
 text = "Register"
 

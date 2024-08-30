@@ -11,9 +11,9 @@ signal signal_client_disconnected(peer_id)
 signal signal_server_disconnected
 
 func _ready():
-	if OS.has_feature("dedicated_server"):
-		initialize_server()
-		create_server()
+	#if OS.has_feature("dedicated_server"):
+	initialize_server()
+	create_server()
 
 func initialize_server():
 	print("Initializing Server")
@@ -48,3 +48,6 @@ func server_disconnected():
 	multiplayer.multiplayer_peer = null
 	clients.clear()
 	signal_server_disconnected.emit()
+
+func check_data_files():
+	pass
