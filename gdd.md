@@ -27,6 +27,9 @@ Two options: Free to play with in game purchases for extra content OR 1 time pay
 ## Game Design
 ### Minimum Viable Product
 - Central Hub (Client-Server)
+  - Client -> Gateway, Server
+  - Gateway -> Client, Authenticator
+  - Server -> Client, Authenticator
 - Mission (p2p)
   - Journal
 - Movement; square grid based (combat), free (out of combat)

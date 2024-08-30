@@ -1,5 +1,6 @@
 extends Node
-var port = 6660
+var port = 6068 #6066, 6067, 6068
+
 
 var clients_connected = 0
 var max_clients = 100

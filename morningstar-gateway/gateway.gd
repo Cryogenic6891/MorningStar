@@ -1,11 +1,16 @@
 extends Node
+var port = 6066
 
+# Accepts incoming requests from client ; 1 per second
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+# Action 1 - Login
+# Sends request with credential info to Authenticator
+# Accepts Authenticator result, successful/failed token
+# Sends result to client, successful/failed token
+# Logs attempt
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+# Action 2 - Register
+# Sends request with credentials info to Authenticator
+# Accepts Authenticator result, successful/failed credential creation
+# Sends result to client, successful/failed credential creation
+# Logs attempt
