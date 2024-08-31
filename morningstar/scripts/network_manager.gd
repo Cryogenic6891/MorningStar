@@ -1,27 +1,13 @@
 extends Node
 
-var ip : String = "192.168.1.64"
-var port = 6066 #6066, 6067, 6068
+var gateway_ip : String = "192.168.1.72"
+var gateway_port = 6066 #6066, 6067, 6068
+var sever_port = 6068
 var connection_id
 
-func _ready():
-	create_client()
-
-func create_client():
-	print("Creating connection")
-	multiplayer.connected_to_server.connect(connected_to_server)
-	multiplayer.server_disconnected.connect(disconnected_from_server)
+func connect_to_gateway():
+	print("Connecting to Gateway")
 	var client = ENetMultiplayerPeer.new()
-	client.create_client(ip, port)
+	client.create_client(gateway_ip, gateway_port)
 	multiplayer.multiplayer_peer = client
 	connection_id = client.get_unique_id()
-
-func connected_to_server():
-	print("Connected to main server at: " + str(connection_id))
-
-func disconnected_from_server():
-	print("Disconnected from server")
-
-@rpc("any_peer")
-func message_to_client():
-	print("message to client")

@@ -78,6 +78,7 @@ Two options: Free to play with in game purchases for extra content OR 1 time pay
 ## Music Inspiration
 - Cradle of Filth - How Many Tears To Nurture A Rose?
 - Arch Enemy - Nemesis
+- Spiritbox - Circle With Me
 - Mastodon - Blood and Thunder
 - Deftones - Back To School (Mini Maggit)
 - Korn - Twisted Transistor

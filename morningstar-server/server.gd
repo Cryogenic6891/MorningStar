@@ -9,7 +9,6 @@ var client_info = {}
 
 signal signal_client_connected(peer_id, client_info)
 signal signal_client_disconnected(peer_id)
-signal signal_server_disconnected
 
 func _ready():
 	#if OS.has_feature("dedicated_server"):
@@ -48,7 +47,3 @@ func client_failed_connection():
 func server_disconnected():
 	multiplayer.multiplayer_peer = null
 	clients.clear()
-	signal_server_disconnected.emit()
-
-func check_data_files():
-	pass
