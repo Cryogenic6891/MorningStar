@@ -10,25 +10,31 @@ extends Control
 @onready var text_animation = $AnimationPlayer
 
 func _ready() -> void:
-	multiplayer.connected_to_server.connect(connected_to_gateway)
-	multiplayer.connection_failed.connect(failed_connection_to_gateway)
+	multiplayer.connected_to_server.connect(connected_to_server)
+	multiplayer.connection_failed.connect(failed_connection_to_server)
+	multiplayer.server_disconnected.connect(disconnected_from_server)
 
 func _on_login_button_pressed() -> void:
 	stop_actions(true)
-	login_status.text = "Connecting to Gateway..."
+	login_status.text = "Connecting to Server..."
 	text_animation.play("text_wait")
 	NetworkManager.connect_to_gateway()
 
-func connected_to_gateway():
+func connected_to_server():
 	text_animation.stop()
-	login_status.text = "Connection to Gateway Successful"
+	login_status.text = "Connection to Server Successful"
 	await get_tree().create_timer(1).timeout
-	rpc_id(1,"check_data_files",multiplayer.get_unique_id(),username_input.text,password_input.text)
+	rpc_id(1,"authorize_client",multiplayer.get_unique_id(),username_input.text,password_input.text)
 
-func failed_connection_to_gateway():
+func failed_connection_to_server():
 	stop_actions(false)
 	text_animation.stop()
-	login_status.text = "Connection to Gateway Failed"
+	login_status.text = "Connection to Server Failed"
+
+func disconnected_from_server():
+	stop_actions(false)
+	text_animation.stop()
+	
 
 func stop_actions(stop : bool):
 	if stop:
@@ -43,5 +49,10 @@ func stop_actions(stop : bool):
 		register_button.disabled = false
 
 @rpc
-func check_data_files(_id,_username,_password):
+func authorize_client(_id,_username,_password):
 	pass
+
+@rpc
+func message_to_client(message):
+	print("test")
+	login_status.text = message
