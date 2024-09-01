@@ -1,0 +1,11 @@
+{
+	"Bormot": {
+		"class": "King",
+		"aspect": "Diamonds",
+		"level": 1,
+		"scene": null,
+		"position": null,
+		"status": null,
+		"inventory": null
+	}
+}

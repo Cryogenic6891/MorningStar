@@ -4,8 +4,18 @@
 		"password": "Bio!1619",
 		"email": "cboyda@runic.ca",
 		"status": "Admin",
-		"character1": null,
+		"character1": {
+			"name": "Bormot",
+			"class": "King",
+			"aspect": "Diamonds",
+			"level": 1,
+			"scene": null,
+			"position": null,
+			"status": null,
+			"inventory": null
+		},
 		"character2": null,
-		"character3": null
+		"character3": null,
+		"character4": null
 	}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvptkmhc5ng2e"]
+[gd_scene load_steps=8 format=3 uid="uid://bvptkmhc5ng2e"]
 
 [ext_resource type="Script" path="res://scripts/network_login.gd" id="1_fn6r5"]
 
@@ -39,6 +39,13 @@ _data = {
 "RESET": SubResource("Animation_v3i5f"),
 "text_wait": SubResource("Animation_uo3rv")
 }
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_61i06"]
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_i4dw7"]
+
+[sub_resource type="World3D" id="World3D_l15cn"]
+camera_attributes = SubResource("CameraAttributesPractical_i4dw7")
 
 [node name="NetworkLogin" type="Control"]
 layout_mode = 3
@@ -145,4 +152,136 @@ libraries = {
 "": SubResource("AnimationLibrary_0gfcu")
 }
 
+[node name="CharacterPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharacterPanel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.1
+anchor_right = 0.9
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharacterPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="char1" type="Button" parent="CharacterPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_61i06")
+text = " Empty "
+
+[node name="char2" type="Button" parent="CharacterPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_61i06")
+text = " Empty "
+
+[node name="char3" type="Button" parent="CharacterPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_61i06")
+text = " Empty "
+
+[node name="char4" type="Button" parent="CharacterPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+button_group = SubResource("ButtonGroup_61i06")
+text = " Empty "
+
+[node name="CreateChar" type="VBoxContainer" parent="CharacterPanel/HBoxContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Class" type="OptionButton" parent="CharacterPanel/HBoxContainer/CreateChar"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="CharacterPanel/HBoxContainer/CreateChar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Aspect" type="OptionButton" parent="CharacterPanel/HBoxContainer/CreateChar"]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="CharacterPanel/HBoxContainer/CreateChar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="NameEdit" type="LineEdit" parent="CharacterPanel/HBoxContainer/CreateChar"]
+layout_mode = 2
+placeholder_text = "Enter Name"
+
+[node name="CreateButton" type="Button" parent="CharacterPanel/HBoxContainer/CreateChar"]
+layout_mode = 2
+text = "Create Character"
+
+[node name="CharProfile" type="VBoxContainer" parent="CharacterPanel/HBoxContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="Class" type="Label" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+text = "Class"
+
+[node name="Aspect" type="Label" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+text = "Aspect"
+
+[node name="NameLabel" type="Label" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+text = "Name"
+
+[node name="Level" type="Label" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+text = "Level: 1"
+
+[node name="HSeparator4" type="HSeparator" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="EnterWorld" type="Button" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+text = "Enter World"
+
+[node name="HSeparator5" type="HSeparator" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="DeleteChar" type="Button" parent="CharacterPanel/HBoxContainer/CharProfile"]
+layout_mode = 2
+text = "Delete"
+
+[node name="CenterContainer" type="CenterContainer" parent="CharacterPanel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="CharacterPanel/HBoxContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="CharacterView" type="SubViewport" parent="CharacterPanel/HBoxContainer/CenterContainer/SubViewportContainer"]
+own_world_3d = true
+world_3d = SubResource("World3D_l15cn")
+handle_input_locally = false
+gui_disable_input = true
+render_target_update_mode = 0
+
 [connection signal="pressed" from="BasePanel/CenterContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char1" to="." method="_on_char_1_toggled"]
+[connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char2" to="." method="_on_char_2_toggled"]
+[connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char3" to="." method="_on_char_3_toggled"]
+[connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char4" to="." method="_on_char_4_toggled"]

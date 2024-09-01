@@ -65,10 +65,14 @@ Two options: Free to play with in game purchases for extra content OR 1 time pay
 - Character Creation
   - **Statistics:** Attack, Magic, Defense, Health
   - **Classes:** 
-    - King(Tank)
-    - Queen(Caster)
-    - Jack(Damage)
-    - Hearts/Diamonds/Spades/Clubs for each role
+    - King(Melee Focus)
+    - Queen(Ranged Focus)
+    - Jack(Hybrid)
+  - **Aspects:**
+    - Hearts (Support) - heals/buffs/debuffs
+    - Diamonds (Tank) - soaks up damage
+    - Spades (Controller) - affects environment
+    - Clubs (Striker) - damages
   - **Naming:** Basic naming rules
 
 ## Concept Art
