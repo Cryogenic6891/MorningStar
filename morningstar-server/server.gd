@@ -8,7 +8,6 @@ var clients = {}
 var client_info = {}
 
 signal signal_client_connected(peer_id, client_info)
-signal signal_client_disconnected(peer_id)
 
 func _ready():
 	#if OS.has_feature("dedicated_server"):

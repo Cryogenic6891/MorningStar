@@ -1,6 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvptkmhc5ng2e"]
+[gd_scene load_steps=10 format=3 uid="uid://bvptkmhc5ng2e"]
 
 [ext_resource type="Script" path="res://scripts/network_login.gd" id="1_fn6r5"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_0jlf5"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_8rove"]
+events = [SubResource("InputEventKey_0jlf5")]
 
 [sub_resource type="Animation" id="Animation_v3i5f"]
 length = 0.001
@@ -100,6 +107,7 @@ text = "Username: "
 [node name="UserInput" type="LineEdit" parent="BasePanel/CenterContainer/UserContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 expand_to_text_length = true
 caret_blink = true
 
@@ -115,7 +123,9 @@ text = "Password: "
 [node name="PasswordInput" type="LineEdit" parent="BasePanel/CenterContainer/PasswordContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 expand_to_text_length = true
+virtual_keyboard_type = 6
 caret_blink = true
 secret = true
 secret_character = "*"
@@ -127,13 +137,14 @@ theme_override_constants/separation = 20
 [node name="LoginButton" type="Button" parent="BasePanel/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_8rove")
 text = "  Login  "
 
 [node name="HSeparator3" type="HSeparator" parent="BasePanel/CenterContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="RegisterButton" type="Button" parent="BasePanel/CenterContainer"]
+[node name="RegisterPanelButton" type="Button" parent="BasePanel/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "  Register  "
@@ -280,8 +291,131 @@ handle_input_locally = false
 gui_disable_input = true
 render_target_update_mode = 0
 
+[node name="RegisterPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="VBoxContainer" parent="RegisterPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -188.0
+offset_top = -145.0
+offset_right = 190.0
+offset_bottom = 146.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "MORNINGSTAR"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="UserContainer" type="HBoxContainer" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="UserLabel" type="Label" parent="RegisterPanel/CenterContainer/UserContainer"]
+layout_mode = 2
+text = "Username: "
+
+[node name="UserInput" type="LineEdit" parent="RegisterPanel/CenterContainer/UserContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+expand_to_text_length = true
+caret_blink = true
+
+[node name="PasswordContainer" type="HBoxContainer" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+
+[node name="PasswordLabel" type="Label" parent="RegisterPanel/CenterContainer/PasswordContainer"]
+layout_mode = 2
+text = "Password: "
+
+[node name="PasswordInput" type="LineEdit" parent="RegisterPanel/CenterContainer/PasswordContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+expand_to_text_length = true
+virtual_keyboard_type = 6
+caret_blink = true
+
+[node name="EmailContainer" type="HBoxContainer" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+alignment = 1
+
+[node name="EmailLabel" type="Label" parent="RegisterPanel/CenterContainer/EmailContainer"]
+layout_mode = 2
+text = "Email: "
+
+[node name="EmailInput" type="LineEdit" parent="RegisterPanel/CenterContainer/EmailContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+expand_to_text_length = true
+virtual_keyboard_type = 5
+caret_blink = true
+
+[node name="HSeparator2" type="HSeparator" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="RegisterButton" type="Button" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_8rove")
+text = " Request Registration "
+
+[node name="CancelButton" type="Button" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+shortcut = SubResource("Shortcut_8rove")
+text = " Cancel Registration "
+
+[node name="HSeparator3" type="HSeparator" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="RegisterStatus" type="RichTextLabel" parent="RegisterPanel/CenterContainer"]
+layout_mode = 2
+fit_content = true
+autowrap_mode = 0
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="."]
+title = "Confirm"
+initial_position = 1
+size = Vector2i(200, 132)
+popup_window = true
+ok_button_text = "Delete"
+dialog_text = "Delete this character?"
+dialog_autowrap = true
+
 [connection signal="pressed" from="BasePanel/CenterContainer/LoginButton" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="BasePanel/CenterContainer/RegisterPanelButton" to="." method="_on_register_panel_button_pressed"]
 [connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char1" to="." method="_on_char_1_toggled"]
 [connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char2" to="." method="_on_char_2_toggled"]
 [connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char3" to="." method="_on_char_3_toggled"]
 [connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char4" to="." method="_on_char_4_toggled"]
+[connection signal="pressed" from="CharacterPanel/HBoxContainer/CreateChar/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="CharacterPanel/HBoxContainer/CharProfile/EnterWorld" to="." method="_on_enter_world_pressed"]
+[connection signal="pressed" from="CharacterPanel/HBoxContainer/CharProfile/DeleteChar" to="." method="_on_delete_char_pressed"]
+[connection signal="pressed" from="RegisterPanel/CenterContainer/RegisterButton" to="." method="_on_register_button_pressed"]
+[connection signal="pressed" from="RegisterPanel/CenterContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
