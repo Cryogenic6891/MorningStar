@@ -159,7 +159,9 @@ func character_subpanel(chars):
 		selected_character = options[chars]["name"]
 
 func _on_create_button_pressed() -> void:
-	pass
+	await get_tree().create_timer(1).timeout
+	rpc_id(1, "authorize_char_creation", multiplayer.get_unique_id(),selected_slot, str(class_dropdown.get_item_text(class_dropdown.selected)), str(aspect_dropdown.get_item_text(aspect_dropdown.selected)), name_edit.text, current_username)
+	character_subpanel(current_profile)
 
 func _on_register_button_pressed() -> void:
 	pass # Replace with function body.
@@ -171,7 +173,6 @@ func _on_cancel_button_pressed() -> void:
 func _on_register_panel_button_pressed() -> void:
 	close_all_panels()
 	register_subpanel.visible = true
-
 
 #Client RPCs
 @rpc

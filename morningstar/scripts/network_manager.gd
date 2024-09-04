@@ -1,6 +1,6 @@
 extends Node
 
-var server_ip : String = "192.168.1.72"
+var server_ip : String = "192.168.1.64"
 var server_port = 6068
 var connection_id
 

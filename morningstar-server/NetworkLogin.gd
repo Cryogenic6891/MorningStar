@@ -29,32 +29,56 @@ var client_dictionary :  Dictionary
 	#}
 
 func _ready() -> void:
+	refresh_data()
+
+func refresh_data():
 	client_dictionary = client_data.data
 	character_dictionary = character_data.data
 
-# validate_username
+func update_data_files():
+	var char_write = JSON.stringify(character_dictionary)
+	FileAccess.open("res://characters.json",FileAccess.WRITE).store_string(char_write)
+	var client_write = JSON.stringify(client_dictionary)
+	FileAccess.open("res://clientprofiles.json",FileAccess.WRITE).store_string(client_write)
 
-# validate_password
-
-# validate_character_name
-
-# Client RPCs
+# Client RPCs (these are only called on the client)
 @rpc
 func message_to_client(_message):
-	pass
+	pass #not called here
 
 @rpc
 func character_select(_char1,_char2,_char3,_char4):
-	pass
+	pass #not called here
 
 # Server RPCs
 @rpc("any_peer")
-func authorize_char_creation(id,slot : int,character : Dictionary):
-	character_dictionary = character_data.data
+func authorize_char_creation(id,slot,char_class,char_aspect,char_name, username):
+	refresh_data()
+	var new_character = {
+	"name": char_name,
+	"class": char_class,
+	"aspect": char_aspect,
+	"level": 1,
+	"scene": null,
+	"position": null,
+	"status": null,
+	"inventory": null
+	}
+	client_dictionary[username][slot] = new_character
+	character_dictionary[char_name] = {
+	"class": char_class,
+	"aspect": char_aspect,
+	"level": 1,
+	"scene": null,
+	"position": null,
+	"status": null,
+	"inventory": null
+	}
+	update_data_files()
 
 @rpc ("any_peer")
 func authorize_client(id,username,password):
-	client_dictionary = client_data.data
+	refresh_data()
 	if client_dictionary.has(username):
 		if client_dictionary[username]["password"] == password:
 			rpc_id(id, "character_select", client_dictionary[username]["character1"], client_dictionary[username]["character2"], client_dictionary[username]["character3"], client_dictionary[username]["character4"])
@@ -65,12 +89,7 @@ func authorize_client(id,username,password):
 
 @rpc ("any_peer")
 func request_delete_character(character,username,slot):
-	character_dictionary = character_data.data
-	client_dictionary = client_data.data
+	refresh_data()
 	character_dictionary.erase(str(character))
 	client_dictionary[str(username)][slot] = null
-	var char_write = JSON.stringify(character_dictionary)
-	FileAccess.open("res://characters.json",FileAccess.READ_WRITE).store_string(char_write)
-	var check = load("res://characters.json")
-	print(check.data)
-	var client_write = JSON.stringify(client_dictionary)
+	update_data_files()
