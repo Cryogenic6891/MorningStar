@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.3", "GL Compatibility")
 [autoload]
 
 NetworkLogin="*res://NetworkLogin.gd"
+SceneManager="*res://SceneManager.gd"
 
 [rendering]
 

@@ -30,10 +30,15 @@ func create_server():
 	clients[1] = client_info
 
 func client_connected(client_id):
-	print("connected: " + str(client_id))
+	print("connected: " + str(client_id) + " at " + get_time())
 
 func client_disconnected(client_id):
-	print("disconnected: " + str(client_id))
+	print("disconnected: " + str(client_id) + " at " + get_time())
+
+func get_time():
+	var time = Time.get_datetime_dict_from_system()
+	var hourminutesecond = str(time["hour"]) + ":" + str(time["minute"]) + ":" + str(time["second"])
+	return hourminutesecond
 
 func client_connected_ok():
 	var peer_id = multiplayer.get_unique_id()

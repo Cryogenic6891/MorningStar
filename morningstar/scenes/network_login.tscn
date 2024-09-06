@@ -1,13 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvptkmhc5ng2e"]
+[gd_scene load_steps=11 format=3 uid="uid://bvptkmhc5ng2e"]
 
 [ext_resource type="Script" path="res://scripts/network_login.gd" id="1_fn6r5"]
-
-[sub_resource type="InputEventKey" id="InputEventKey_0jlf5"]
-device = -1
-keycode = 4194309
-
-[sub_resource type="Shortcut" id="Shortcut_8rove"]
-events = [SubResource("InputEventKey_0jlf5")]
+[ext_resource type="PackedScene" uid="uid://y8yq0hcklqwl" path="res://entities/player.tscn" id="3_egyge"]
 
 [sub_resource type="Animation" id="Animation_v3i5f"]
 length = 0.001
@@ -53,6 +47,13 @@ _data = {
 
 [sub_resource type="World3D" id="World3D_l15cn"]
 camera_attributes = SubResource("CameraAttributesPractical_i4dw7")
+
+[sub_resource type="InputEventKey" id="InputEventKey_0jlf5"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="Shortcut" id="Shortcut_8rove"]
+events = [SubResource("InputEventKey_0jlf5")]
 
 [node name="NetworkLogin" type="Control"]
 layout_mode = 3
@@ -137,7 +138,6 @@ theme_override_constants/separation = 20
 [node name="LoginButton" type="Button" parent="BasePanel/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-shortcut = SubResource("Shortcut_8rove")
 text = "  Login  "
 
 [node name="HSeparator3" type="HSeparator" parent="BasePanel/CenterContainer"]
@@ -291,6 +291,17 @@ handle_input_locally = false
 gui_disable_input = true
 render_target_update_mode = 0
 
+[node name="Player" parent="CharacterPanel/HBoxContainer/CenterContainer/SubViewportContainer/CharacterView" instance=ExtResource("3_egyge")]
+
+[node name="Camera3D" parent="CharacterPanel/HBoxContainer/CenterContainer/SubViewportContainer/CharacterView/Player" index="1"]
+v_offset = 2.0
+projection = 0
+fov = 5.0
+size = 7.0
+
+[node name="Skeleton3D" parent="CharacterPanel/HBoxContainer/CenterContainer/SubViewportContainer/CharacterView/Player" index="4"]
+transform = Transform3D(-0.8, 0, -6.99382e-08, 0, 0.8, 0, 6.99382e-08, 0, -0.8, 0, 0, 0)
+
 [node name="RegisterPanel" type="Panel" parent="."]
 visible = false
 layout_mode = 1
@@ -381,7 +392,6 @@ theme_override_constants/separation = 20
 [node name="RegisterButton" type="Button" parent="RegisterPanel/CenterContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-shortcut = SubResource("Shortcut_8rove")
 text = " Request Registration "
 
 [node name="CancelButton" type="Button" parent="RegisterPanel/CenterContainer"]
@@ -408,6 +418,9 @@ ok_button_text = "Delete"
 dialog_text = "Delete this character?"
 dialog_autowrap = true
 
+[node name="AcceptDialog" type="AcceptDialog" parent="."]
+initial_position = 1
+
 [connection signal="pressed" from="BasePanel/CenterContainer/LoginButton" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="BasePanel/CenterContainer/RegisterPanelButton" to="." method="_on_register_panel_button_pressed"]
 [connection signal="toggled" from="CharacterPanel/HBoxContainer/VBoxContainer/char1" to="." method="_on_char_1_toggled"]
@@ -419,3 +432,5 @@ dialog_autowrap = true
 [connection signal="pressed" from="CharacterPanel/HBoxContainer/CharProfile/DeleteChar" to="." method="_on_delete_char_pressed"]
 [connection signal="pressed" from="RegisterPanel/CenterContainer/RegisterButton" to="." method="_on_register_button_pressed"]
 [connection signal="pressed" from="RegisterPanel/CenterContainer/CancelButton" to="." method="_on_cancel_button_pressed"]
+
+[editable path="CharacterPanel/HBoxContainer/CenterContainer/SubViewportContainer/CharacterView/Player"]
